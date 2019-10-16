@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <title>HOS company</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="content-header">
+        <p>
+          <span data-js="name-company"></span> -
+          <span data-js="phone-company"></span>
+        </p>
+      </div>
+
+      <div class="content">
+        <form data-js="form">
+          <div>
+            <label for="image">Imagem do carro:</label>
+            <input data-js="image" type="url" id="image" />
+          </div>
+          <div>
+            <label for="brand">Marca/Modelo:</label>
+            <input data-js="brand" type="text" id="brand" />
+          </div>
+          <div>
+            <label for="year">Ano:</label>
+            <input data-js="year" type="text" id="year" />
+          </div>
+          <div>
+            <label for="board">Placa:</label>
+            <input data-js="board" type="text" id="board" />
+          </div>
+          <div>
+            <label for="color">Cor:</label>
+            <input data-js="color" type="text" id="color" />
+          </div>
+          <div>
+            <button class="btn" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="content-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Imagem do carro</th>
+              <th>Marca</th>
+              <th>Ano</th>
+              <th>Placa</th>
+              <th>Cor</th>
+            </tr>
+          </thead>
+          <tbody data-js="tbody">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="lib/dom.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
