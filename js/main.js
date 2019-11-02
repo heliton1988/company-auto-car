@@ -61,12 +61,27 @@
         var $image = doc.createElement('img');
         $image.setAttribute('src', new DOM('[data-js="image"]').get()[0].value);
 
+        var $button = doc.createElement('button');
+        var $text = doc.createTextNode('remove');
+        $button.setAttribute('id', 'btn-remove');
+        $button.appendChild($text);
+
+        $button.onclick = function(e) {
+          e.preventDefault();
+          $tr.innerHTML = '';
+        };
+
         var $tdImage = doc.createElement('td');
         var $tdBrand = doc.createElement('td');
         var $tdYaer = doc.createElement('td');
         var $tdPlate = doc.createElement('td');
         var $tdColor = doc.createElement('td');
+        var $tdRemoveCar = doc.createElement('td');
 
+        $tdRemoveCar.setAttribute('id', 'td-remove');
+        $tdRemoveCar.style.background = 'red';
+
+        $tdRemoveCar.appendChild($button);
         $tdImage.appendChild($image);
         $tdBrand.textContent = new DOM('[data-js="brand"]').get()[0].value;
         $tdYaer.textContent = new DOM('[data-js="year"]').get()[0].value;
@@ -78,6 +93,7 @@
         $tr.appendChild($tdYaer);
         $tr.appendChild($tdPlate);
         $tr.appendChild($tdColor);
+        $tr.appendChild( $tdRemoveCar);
 
         return $fragment.appendChild($tr);
       },
