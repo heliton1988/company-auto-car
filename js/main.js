@@ -79,7 +79,6 @@
         var $tdRemoveCar = doc.createElement('td');
 
         $tdRemoveCar.setAttribute('id', 'td-remove');
-        $tdRemoveCar.style.background = 'red';
 
         $tdRemoveCar.appendChild($button);
         $tdImage.appendChild($image);
