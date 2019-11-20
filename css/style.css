@@ -22,20 +22,18 @@ hr {
 }
 
 .container {
-  margin: 50px auto;
-  max-width: 980px;
+  margin: 0 auto;
+  max-width: auto;
   width: 100%;
   display: block;
-
+  align-items: center;
 }
 
 .content-header {
   width: 100%;
-  height: 80px;
+  height: 100px;
   padding-top: 20px;
   background-image: linear-gradient(to right, rgb(114, 2, 2) ,rgb(212, 27, 27) );
-  box-shadow: 10px ;
-  border-radius: 4px 4px 0 0;
   text-align: center;
   vertical-align: middle;
 }
@@ -46,20 +44,21 @@ hr {
   color: #fff;
 }
 
-
-
 .content {
   max-width: 450px;
   width: 100%;
   background: #fff;
-  margin-top: 20px;
-  border-radius: 4px;
+  margin-top: 40px;
+  margin-left: 100px;
   padding: 30px;
   float: left;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.12);
 }
 
 .content form input {
-  font-size: 22px;
+  font-size: 14px;
+  text-align: center;
+  width: 60%;
   line-height: 30px;
   margin-bottom: 30px;
   border: 1px solid #ddd;
@@ -89,17 +88,14 @@ hr {
   opacity: .8;
   cursor: pointer;
 }
-/*rgb(34, 190, 111) */
+
 .content-table {
-  margin-top: 20px;
-  max-width: 520px;
+  margin: 40px 50px 0  0;
+  max-width: 700px;
   width: 100%;
   float: right;
-  background: #fff;
-  border-radius: 4px;
-  align-items: center;
+  align-items: left;
 }
-
 
 .content-table table tbody img {
   width: 50px;
@@ -107,19 +103,19 @@ hr {
 }
 
 .content-table table {
-  border-radius: 4px;
-  width: 100%;
+  /* width: px; */
+  float: left;
+  padding-left: 0;
 }
 
 .content-table table, th, td {
   margin-top: 1px;
   border-collapse: collapse;
-  border: 1px solid #ddd;
   padding: 5px;
 }
 
 .content-table th, td {
-  width: 103px;
+  width: 115px;
 }
 
 .content-table thead th {
@@ -127,6 +123,28 @@ hr {
 }
 
 .content-table thead {
-  background: rgb(77, 97, 114);
+  background: rgba(79, 116, 153, 0.582);
 }
 
+.content-table tbody {
+  background: #fff;
+  text-align: center;
+}
+
+.content-table tbody td#td-remove {
+  padding: 0;
+  width: 50px;
+}
+
+.content-table tbody td#td-remove button#btn-remove {
+  border: none;
+  height: 64px;
+  width: 100%;
+  background: rgb(194, 13, 13);
+  color: #fff;
+}
+
+.content-table tbody td#td-remove button#btn-remove:hover {
+  opacity: .8;
+  cursor: pointer;
+}
