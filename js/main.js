@@ -40,6 +40,7 @@
       init: function init() {
         this.companyInfo();
         this.initEvents();
+        this.getData();
       },
 
       initEvents: function initEvents() {
@@ -50,60 +51,37 @@
       handleSubmit: function handleSubmit(e) {
         e.preventDefault();
 
-        var $tableCar = new DOM('[data-js="tbody"]').get()[0];
-        $tableCar.appendChild( app().populateTable() );
+        app().populateTable();
       },
 
       populateTable: function populateTable() {
-        var $fragment = doc.createDocumentFragment();
-        var $tr = doc.createElement('tr');
+       
+        var post = new XMLHttpRequest();
 
-        var $image = doc.createElement('img');
-        $image.setAttribute('src', new DOM('[data-js="image"]').get()[0].value);
+        if(!new DOM('[data-js="image"]').get()[0].value)
+          return;
+        
+        post.open('POST', 'http://localhost:3000/car');
+        post.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        post.send(
+          'image=' + new DOM('[data-js="image"]').get()[0].value + 
+          '&brandModel=' + new DOM('[data-js="brand"]').get()[0].value + 
+          '&year=' + new DOM('[data-js="year"]').get()[0].value + 
+          '&plate=' + new DOM('[data-js="board"]').get()[0].value + 
+          '&color=' + new DOM('[data-js="color"]').get()[0].value
+        );
 
-        var $button = doc.createElement('button');
-        var $text = doc.createTextNode('remove');
-        $button.setAttribute('id', 'btn-remove');
-        $button.appendChild($text);
-
-        $button.onclick = function(e) {
-          e.preventDefault();
-          $tr.innerHTML = '';
-        };
-
-        var $tdImage = doc.createElement('td');
-        var $tdBrand = doc.createElement('td');
-        var $tdYaer = doc.createElement('td');
-        var $tdPlate = doc.createElement('td');
-        var $tdColor = doc.createElement('td');
-        var $tdRemoveCar = doc.createElement('td');
-
-        $tdRemoveCar.setAttribute('id', 'td-remove');
-
-        $tdRemoveCar.appendChild($button);
-        $tdImage.appendChild($image);
-        $tdBrand.textContent = new DOM('[data-js="brand"]').get()[0].value;
-        $tdYaer.textContent = new DOM('[data-js="year"]').get()[0].value;
-        $tdPlate.textContent = new DOM('[data-js="board"]').get()[0].value;
-        $tdColor.textContent = new DOM('[data-js="color"]').get()[0].value;
-
-        $tr.appendChild($tdImage);
-        $tr.appendChild($tdBrand);
-        $tr.appendChild($tdYaer);
-        $tr.appendChild($tdPlate);
-        $tr.appendChild($tdColor);
-        $tr.appendChild( $tdRemoveCar);
-
-        return $fragment.appendChild($tr);
+        post.onreadystatechange = function() {
+         return post.readyState === 4 && post.status === 200;
+        }
+        this.getData();
       },
 
       companyInfo: function companyInfo() {
         var ajax = new XMLHttpRequest();
 
         ajax.open('GET', 'data/company.json', true);
-
-        ajax.send();
-
+        ajax.send(null);
         ajax.addEventListener('readystatechange', this.getCompanyInfo, false);
       },
 
@@ -122,7 +100,72 @@
 
       isRequestOk: function isRequestOk() {
         return this.readyState === 4 && this.status === 200;
-      }
+      },
+
+      getData: function getData() {
+        var request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:3000/car');
+        request.send(null);
+
+        request.onreadystatechange = function(event) {
+          if(request.readyState === 4 && request.status === 200) {
+            
+            populateTable2()
+          }
+        }
+
+        function populateTable2() {
+          var dataResquest = JSON.parse(request.responseText);
+
+          var $tableCar = new DOM('[data-js="tbody"]').get()[0];
+          $tableCar.innerHTML = '';
+
+          dataResquest.forEach(function(item) {
+            console.log(item);
+            var $fragment = doc.createDocumentFragment();
+            var $tr = doc.createElement('tr');
+
+            var $image = doc.createElement('img');
+            $image.setAttribute('src', item.image);
+
+            var $button = doc.createElement('button');
+            var $text = doc.createTextNode('remove');
+            $button.setAttribute('id', 'btn-remove');
+            $button.appendChild($text);
+
+            $button.onclick = function(e) {
+              e.preventDefault();
+              $tr.innerHTML = '';
+            };
+
+            var $tdImage = doc.createElement('td');
+            var $tdBrand = doc.createElement('td');
+            var $tdYaer = doc.createElement('td');
+            var $tdPlate = doc.createElement('td');
+            var $tdColor = doc.createElement('td');
+            var $tdRemoveCar = doc.createElement('td');
+
+            $tdRemoveCar.setAttribute('id', 'td-remove');
+
+            $tdRemoveCar.appendChild($button);
+            $tdImage.appendChild($image);
+            $tdBrand.textContent = item.brandModel;
+            $tdYaer.textContent = item.year;
+            $tdPlate.textContent = item.plate;
+            $tdColor.textContent = item.color;
+      
+            $tr.appendChild($tdImage);
+            $tr.appendChild($tdBrand);
+            $tr.appendChild($tdYaer);
+            $tr.appendChild($tdPlate);
+            $tr.appendChild($tdColor);
+            $tr.appendChild( $tdRemoveCar);
+
+            $fragment.appendChild($tr);
+            $tableCar.appendChild($fragment);
+          });
+        }
+      } 
     }
   }
 
